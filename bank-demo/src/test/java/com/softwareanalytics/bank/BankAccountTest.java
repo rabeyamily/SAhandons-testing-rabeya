@@ -99,4 +99,24 @@ class BankAccountTest {
             assertEquals("amount must be positive", ex.getMessage());
         }
     }
+
+    @Test
+    @DisplayName("extra coverage: guards, freeze, transfer, interest")
+    void extraCoverage() {
+        assertThrows(IllegalArgumentException.class, () -> new BankAccount(null, 0.0));
+
+        account.freeze();
+        assertThrows(IllegalStateException.class, () -> account.deposit(1.0));
+        account.unfreeze();
+
+        BankAccount target = new BankAccount("Bob", 20.0);
+        assertThrows(IllegalArgumentException.class, () -> account.transfer(null, 5.0));
+        account.transfer(target, 30.0);
+        assertEquals(70.0, account.getBalance());
+        assertEquals(50.0, target.getBalance());
+
+        assertThrows(IllegalArgumentException.class, () -> account.applyMonthlyInterest(-1.0));
+        account.applyMonthlyInterest(12.0);
+        assertEquals(70.7, account.getBalance(), 1e-9);
+    }
 }
