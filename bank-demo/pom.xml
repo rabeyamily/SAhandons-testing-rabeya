@@ -24,6 +24,12 @@
             <version>5.10.1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.pitest</groupId>
+            <artifactId>pitest-junit5-plugin</artifactId>
+            <version>1.2.3</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
